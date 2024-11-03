@@ -8,12 +8,19 @@
 	"settings": {
 		"[bat]": {
 			"files.encoding": "cp850",
-			"editor.defaultFormatter": "ms-vscode.powershell",
-			"terminal.integrated.defaultProfile.windows": "Command Prompt"
+			"editor.defaultFormatter": "yzhang.markdown-all-in-one"
 		},
+		"[cmd]": {
+			"files.encoding": "cp850",
+			"editor.defaultFormatter": "yzhang.markdown-all-in-one"
+		},
+		"[ps1]": {
+			"files.encoding": "utf8",
+			"editor.defaultFormatter": "ms-vscode.powershell"
+		},
+		"terminal.integrated.defaultProfile.windows": "Command Prompt",
 		"editor.acceptSuggestionOnEnter": "on",
 		"editor.codeLens": true,
-		"terminal.integrated.defaultProfile.windows": "PowerShell",
 		"json.schemas": [
 			{
 				"fileMatch": [
