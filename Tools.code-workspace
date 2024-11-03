@@ -8,19 +8,30 @@
 	"settings": {
 		"[bat]": {
 			"files.encoding": "cp850",
-			"editor.defaultFormatter": "yzhang.markdown-all-in-one"
+			"editor.defaultFormatter": "rechinformatica.rech-editor-batch"
 		},
 		"[cmd]": {
 			"files.encoding": "cp850",
-			"editor.defaultFormatter": "yzhang.markdown-all-in-one"
+			"editor.defaultFormatter": "rechinformatica.rech-editor-batch"
 		},
 		"[ps1]": {
 			"files.encoding": "utf8",
-			"editor.defaultFormatter": "ms-vscode.powershell"
+			"editor.defaultFormatter": "ms-vscode.powershell",
 		},
+		"editor.acceptSuggestionOnCommitCharacter": true,
+		"editor.indentSize": 6,
+		"editor.suggest.selectionMode": "always",
+		"editor.tabCompletion": "onlySnippets",
+		"editor.suggestOnTriggerCharacters": false,
+		"editor.codeActionWidget.showHeaders": true,
 		"terminal.integrated.defaultProfile.windows": "Command Prompt",
 		"editor.acceptSuggestionOnEnter": "on",
 		"editor.codeLens": true,
+		"editor.quickSuggestions": {
+			"strings": "on",
+			"comments": "on",
+			"other": "off"
+		},
 		"json.schemas": [
 			{
 				"fileMatch": [
@@ -28,7 +39,16 @@
 				],
 				"url": "vscode://schemas/workspaceConfig"
 			}
-		]
-
+		],
+		"better-comments.highlightPlainText": true,
+		"better-comments.multilineComments": true,
+		"editor.tokenColorCustomizations": 
+		{
+			"comments":
+			{
+				"fontStyle": "italic",
+				"foreground": "#15A808"
+			}	
+		}			
 	}
-}
+} 

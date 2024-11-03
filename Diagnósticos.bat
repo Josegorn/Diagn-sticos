@@ -1,89 +1,100 @@
 @echo off
-chcp 850 > nul
 
-:menu
-title Diagn¢sticos CMD
+:: Cambia el c¢digo de p gina a 850 (ANSI Europa Occidental)
+chcp 850 > null
+:: Activar el uso de variables locales
+setlocal
+
+:: Colores
+set BLANCO=[0m
+set ROJO=[91m
+set VERDE=[92m
+set AMARILLO=[93m
+set VIOLETA=[95m
+
+title Diagn¢sticos
+
 cls
 echo.
-echo [93mOpciones:[0m
+echo %AMARILLO%Opciones:%BLANCO%
 echo.
-echo [93m1.[0m Comprobar si alg£n proceso err¢neo ha marcado la imagen como da¤ada    [95m(/CheckHealth)[0m 
-echo [93m2.[0m Detectar si el almac‚n de componentes est‚ da¤ado                      [95m(/ScanHealth)[0m 
-echo [93m3.[0m Detectar y reparar si el almac‚n de componentes est‚ da¤ado            [95m(/RestoreHealth)[0m 
-echo [93m4.[0m Crear un informe del almac‚n de componentes de WinSxS                  [95m(/AnalyzeComponentStore)[0m
-echo [93m5.[0m Limpiar los componentes reemplazados del almac‚n de componentes        [95m(/StartComponentCleanup)[0m
-echo [93m6.[0m Examina y repara la integridad de todos los archivos de sistema        [91m(SFC /ScanNow)[0m
-echo [93m7.[92m Realizar todos los diagn¢sticos[0m  
+echo %AMARILLO%1.%BLANCO% Comprobar si alg£n proceso err¢neo ha marcado la imagen como da¤ada  %VIOLETA%(/CheckHealth)%BLANCO%
+echo %AMARILLO%2.%BLANCO% Detectar si el almac‚n de componentes est‚ da¤ado                    %VIOLETA%(/ScanHealth)%BLANCO%
+echo %AMARILLO%3.%BLANCO% Detectar y reparar si el almac‚n de componentes est‚ da¤ado          %VIOLETA%(/RestoreHealth)%BLANCO%
+echo %AMARILLO%4.%BLANCO% Crear un informe del almac‚n de componentes de WinSxS                %VIOLETA%(/AnalyzeComponentStore)%BLANCO%
+echo %AMARILLO%5.%BLANCO% Limpiar los componentes reemplazados del almac‚n de componentes      %VIOLETA%(/StartComponentCleanup)%BLANCO%
+echo %AMARILLO%6.%BLANCO% Examina y repara la integridad de todos los archivos de sistema      %ROJO%(SFC /ScanNow)%BLANCO%
+echo %AMARILLO%7.%VERDE% Realizar todos los diagn¢sticos%BLANCO%  
 echo.
-echo Presiona otra tecla para salir...
+echo %ROJO%0.%BLANCO% Salir
 echo.
+choice /C:12345670 /n /t 20 /d 0 /m "Opci¢n: "
 
-set /P opcion="Opci¢n (1-7):" 
+goto :FUNCION_%errorlevel% 
 
-if "%opcion%"=="1" (
+:FUNCION_1
+    title Check Health
+    echo %ROJO%Check Health:%BLANCO% Se est  realizando un diagnostico r pido de la imagen del sistema para ver si est  da¤ada. No realiza ninguna reparaci¢n.
+    echo %ROJO%
+    dism /Online /CleanUp-Image /CheckHealth 1>nul 2>&1
+    echo %VERDE%Comprobaci¢n terminada.%BLANCO%
+    endlocal & pause & exit /B 0 
 
-    title DISM Check Health
-    DISM /Online /CleanUp-Image /CheckHealth
-    echo.
-    pause
-    goto menu 
-)
-if "%opcion%"=="2" (
+:FUNCION_2
+    title Scan Health
+    echo %ROJO%Scan Health:%BLANCO% Se est  realizando un diagnostico exhaustivo de la imagen del sistema para ver si est  da¤ada. No realiza ninguna reparaci¢n.
+    echo %ROJO%
+    dism /Online /CleanUp-Image /ScanHealth 1>nul  2>&1
+    echo %VERDE%Comprobaci¢n terminada.%BLANCO%
+    endlocal & pause & exit /B 0 
 
-    title DISM Scan Health
-    DISM /Online /CleanUp-Image /ScanHealth
-    echo.
-    pause
-    goto menu 
-)
-if "%opcion%"=="3" (
+:FUNCION_3
+    title Restore Health
+    echo %ROJO%Restore Health:%BLANCO% Se est  realizando un diagnostico exhaustivo de la imagen del sistema y se realizar n operaciones de reparari¢n si encuentra errores.
+    echo %ROJO%
+    dism /Online /CleanUp-Image /RestoreHealth 1>nul 2>&1
+    echo %VERDE%Comprobaci¢n terminada.%BLANCO%
+    endlocal & pause & exit /B 0  
 
-    title DISM Restore Health
-    DISM /Online /CleanUp-Image /RestoreHealth
-    echo.
-    pause
-    goto menu 
-)
-if "%opcion%"=="4" (
+:FUNCION_4
+    title Analyze Component Store
+    echo %ROJO%Analyze Component Store:%BLANCO% Se est  realizando un an¤alisis el almacen de componentes WinSxS que contiene los archivos necesarios para actualizaciones, configuraciones, y componentes del sistema.
+    echo %ROJO%
+    dism /Online /CleanUp-Image /AnalyzeComponentStore 1>nul 2>&1
+    echo %VERDE%Comprobaci¢n terminada.%BLANCO%
+    endlocal & pause & exit /B 0 
 
-    title DISM Analyze Component Store
-    DISM /Online /CleanUp-Image /AnalyzeComponentStore
-    echo.
-    pause
-    goto menu 
-)
-if "%opcion%"=="5" (
+:FUNCION_5
+    title Start Component Cleanup
+    echo %ROJO%Start Component Cleanup:%BLANCO% Se est  limpiando el almacen de componentes WinSxS y para liberar espacio en disco y eliminando archivos innecesarios y obsoletos.
+    echo %ROJO%
+    dism /Online /CleanUp-Image /StartComponentCleanup /ResetBase 1>nul 2>&1
+    echo %VERDE%Comprobaci¢n terminada.%BLANCO%
+    endlocal & pause & exit /B 0 
 
-    title DISM Start Component Cleanup
-    DISM /Online /CleanUp-Image /StartComponentCleanup /ResetBase
-    echo.
-    pause
-    goto menu 
-)
-if "%opcion%"=="6" (
+:FUNCION_6
+    title System File Checker
+    echo %ROJO%System File Checker:%BLANCO% Se est  realizando un diagnostico completo de todos los archivos protegidos de Windows.Se realizar n operaciones de reparari¢n si encuentra errores.
+    echo %ROJO%
+    sfc /scannow 1>nul 2>&1
+    echo %VERDE%Comprobaci¢n terminada.%BLANCO%
+    endlocal & pause & exit /B 0 
 
-    title Comprobar la integridad de los recursos del sistema
-    SFC /ScanNow
-    echo.
-    pause
-    goto menu 
-)
-if "%opcion%"=="7" (
+:FUNCION_7
+    title Analisis completo
+    echo Se proceder  a realizar todos los diagosticos.
+    dism /Online /CleanUp-Image /Checkhhealth 1>nul 2>&1
+    echo %ROJO%Restore Health.%BLANCO%
+    dism /Online /CleanUp-Image /RestoreHealth 1>nul 2>&1
+    if not ERRORLEVEL 0 echo %AMARILLO%Se han encontrado errores.%BLANCO% & pause & exit /B 1
+    echo %ROJO%Start Component Cleanup.%BLANCO% 
+    dism /Online /CleanUp-Image /StartComponentCleanup /ResetBase 1>nul 2>&1
+    if not ERRORLEVEL 0 echo %AMARILLO%Se han encontrado errores.%BLANCO% & pause & exit 1 /B
+    echo %ROJO%System File Checker.%BLANCO%
+    sfc /scannow 1>nul 2>&1
+    if not ERRORLEVEL 0 echo %AMARILLO%Se han encontrado errores.%BLANCO% & pause & exit /B 1 
+    echo %VERDE%Comprobaci¢n terminada.%BLANCO%
+    endlocal & pause & exit /B 0 
 
-    title DISM Check Health
-    DISM /Online /CleanUp-Image /CheckHealth
-    title DISM Scan Health
-    DISM /Online /CleanUp-Image /ScanHealth
-    title DISM Restore Health
-    DISM /Online /CleanUp-Image /RestoreHealth
-    title DISM DISM Analyze Component Store
-    DISM /Online /CleanUp-Image /AnalyzeComponentStore
-    title DISM Start Component Cleanup
-    DISM /Online /CleanUp-Image /StartComponentCleanup /ResetBase
-    title Comprobar de recursos
-    SFC /ScanNow
-    echo.
-    pause
-    goto menu 
-)
-exit /B 0
+:FUNCION_8
+    endlocal & exit 0 
