@@ -34,7 +34,7 @@ Function mostrar_menu {
         Write-Host (" Salir.") -ForegroundColor "White" -NoNewline;
 
 }
-mostrar_menumenu
+mostrar_menu
 
 while (( $opt = Read-Host -Prompt "Option: ") -ne "4"){
 
@@ -102,5 +102,5 @@ while (( $opt = Read-Host -Prompt "Option: ") -ne "4"){
             return 0
         }                              
     }
-    mostrar_menumenu
+    mostrar_menu
 }
