@@ -5,7 +5,6 @@ Function mostrar_menu {
     # Título de la ventana
     $Host.UI.RawUI.WindowTitle = "Diagnóstico";
     # Menú
-    Clear-Host;
     Write-Host ("");
     Write-Host ("Opciones:") -ForegroundColor "DarkYellow";
     Write-Host ("");
@@ -32,12 +31,13 @@ Function mostrar_menu {
         Write-Host ("");
     Write-Host (" 0.") -ForegroundColor "DarkRed" -NoNewline;
         Write-Host (" Salir.") -ForegroundColor "White" -NoNewline;
-
 }
+Clear-Host;
 mostrar_menu
 
 while (( $opt = Read-Host -Prompt "Option: ") -ne "4"){
 
+    Clear-Host;
     Switch($opt)
     {
         1 {
@@ -45,7 +45,6 @@ while (( $opt = Read-Host -Prompt "Option: ") -ne "4"){
             Write-Host ("Check Health: ") -ForegroundColor "DarkRed" -NoNewline;
             Write-Host ("Se está realizando un diagnostico rápido de la imagen del sistema para ver si está dañada. No realiza ninguna reparación.") -ForegroundColor "White";
             Repair-WindowsImage -Online -CheckHealth -NoRestart;
-            Write-Host ("Comprobación terminada.") -ForegroundColor "DarkGreen";
             Break;
         }
         2 {
@@ -53,7 +52,6 @@ while (( $opt = Read-Host -Prompt "Option: ") -ne "4"){
             Write-Host ("Scan Health: ") -ForegroundColor "DarkRed" -NoNewline;
             Write-Host ("Se está realizando un diagnostico exhaustivo de la imagen del sistema para ver si está dañada. No realiza ninguna reparación.") -ForegroundColor "White";
             Repair-WindowsImage -Online -ScanHealth -NoRestart;
-            Write-Host ("Comprobación terminada.") -ForegroundColor "DarkGreen";
             Break;
         }
         3 {
@@ -61,7 +59,6 @@ while (( $opt = Read-Host -Prompt "Option: ") -ne "4"){
             Write-Host ("Restore Health: ") -ForegroundColor "DarkRed" -NoNewline;
             Write-Host ("Se está realizando un diagnostico exhaustivo de la imagen del sistema y se realizarán operaciones de repararión si encuentra errores..") -ForegroundColor "White";
             Repair-WindowsImage -Online -RestoreHealth; 
-            Write-Host ("Comprobación terminada.") -ForegroundColor "DarkGreen";
             Break;
         }
         4 {
@@ -69,7 +66,6 @@ while (( $opt = Read-Host -Prompt "Option: ") -ne "4"){
             Write-Host ("Analyze Component Store: ") -ForegroundColor "DarkRed" -NoNewline;
             Write-Host ("Se está realizando un anñalisis el almacen de componentes WinSxS que contiene los archivos necesarios para actualizaciones, configuraciones, y componentes del sistema.") -ForegroundColor "White";
             Get-WindowsReservedStorageState -Online -NoRestart;
-            Write-Host ("Comprobación terminada.") -ForegroundColor "DarkGreen";
             Break;
         }
         5 {
@@ -77,8 +73,6 @@ while (( $opt = Read-Host -Prompt "Option: ") -ne "4"){
             Write-Host ("Start Component Cleanup: ") -ForegroundColor "DarkRed" -NoNewline;
             Write-Host ("Se está limpiando el almacen de componentes WinSxS y para liberar espacio en disco y eliminando archivos innecesarios y obsoletos.") -ForegroundColor "White";
             Repair-WindowsImage -Online -StartComponentCleanup -NoRestart; -ResetBase -RasetApps;
-            Optimize-AppXProvisionedPackages -Online -CleanupTemporaryFiles  -NoRestart;
-            Write-Host ("Comprobación terminada.") -ForegroundColor "DarkGreen";
             Break;
         }
         6 {
@@ -86,7 +80,6 @@ while (( $opt = Read-Host -Prompt "Option: ") -ne "4"){
             Write-Host ("Start Component Cleanup: ") -ForegroundColor "DarkRed" -NoNewline;
             Write-Host ("Se está limpiando el almacen de componentes WinSxS y para liberar espacio en disco y eliminando archivos innecesarios y obsoletos.") -ForegroundColor "White";
             Start-Process -FilePath "C:\Windows\System32\sfc.exe" -ArgumentList '/scannow' -Wait -Verb RunAs;
-            Write-Host ("Comprobación terminada.") -ForegroundColor "DarkGreen";
             Break;
         }
         7 {
@@ -95,12 +88,13 @@ while (( $opt = Read-Host -Prompt "Option: ") -ne "4"){
             Repair-WindowsImage -Online -RestoreHealth; 
             Repair-WindowsImage -Online -StartComponentCleanup -NoRestart; -ResetBase -RasetApps;
             Start-Process -FilePath "C:\Windows\System32\sfc.exe" -ArgumentList '/scannow' -Wait -Verb RunAs;
-            Write-Host ("Comprobación terminada.") -ForegroundColor "DarkGreen";
             Break;
         }
         default {
             return 0
         }                              
     }
+    Write-Host ("Comprobación terminada.") -ForegroundColor "DarkGreen";
+    pause
     mostrar_menu
 }
