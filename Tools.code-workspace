@@ -15,7 +15,7 @@
 			"editor.defaultFormatter": "rechinformatica.rech-editor-batch"
 		},
 		"[ps1]": {
-			"files.encoding": "utf8",
+			"files.encoding": "utf8bom",
 			"editor.defaultFormatter": "ms-vscode.powershell",
 		},
 		"editor.acceptSuggestionOnCommitCharacter": true,

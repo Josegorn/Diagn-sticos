@@ -18,15 +18,15 @@ cls
 echo.
 echo %AMARILLO%Opciones:%BLANCO%
 echo.
-echo %AMARILLO%1.%BLANCO% Comprobar si alg£n proceso err¢neo ha marcado la imagen como da¤ada  %VIOLETA%(/CheckHealth)%BLANCO%
-echo %AMARILLO%2.%BLANCO% Detectar si el almac‚n de componentes est‚ da¤ado                    %VIOLETA%(/ScanHealth)%BLANCO%
-echo %AMARILLO%3.%BLANCO% Detectar y reparar si el almac‚n de componentes est‚ da¤ado          %VIOLETA%(/RestoreHealth)%BLANCO%
-echo %AMARILLO%4.%BLANCO% Crear un informe del almac‚n de componentes de WinSxS                %VIOLETA%(/AnalyzeComponentStore)%BLANCO%
-echo %AMARILLO%5.%BLANCO% Limpiar los componentes reemplazados del almac‚n de componentes      %VIOLETA%(/StartComponentCleanup)%BLANCO%
-echo %AMARILLO%6.%BLANCO% Examina y repara la integridad de todos los archivos de sistema      %ROJO%(SFC /ScanNow)%BLANCO%
-echo %AMARILLO%7.%VERDE% Realizar todos los diagn¢sticos%BLANCO%  
+echo %AMARILLO%1.%BLANCO% Comprobar si alg£n proceso err¢neo ha marcado la imagen como da¤ada.  %VIOLETA%(/CheckHealth)%BLANCO%
+echo %AMARILLO%2.%BLANCO% Detectar si el almac‚n de componentes est‚ da¤ado.                    %VIOLETA%(/ScanHealth)%BLANCO%
+echo %AMARILLO%3.%BLANCO% Detectar y reparar si el almac‚n de componentes est‚ da¤ado.          %VIOLETA%(/RestoreHealth)%BLANCO%
+echo %AMARILLO%4.%BLANCO% Crear un informe del almac‚n de componentes de WinSxS.                %VIOLETA%(/AnalyzeComponentStore)%BLANCO%
+echo %AMARILLO%5.%BLANCO% Limpiar los componentes reemplazados del almac‚n de componentes.      %VIOLETA%(/StartComponentCleanup)%BLANCO%
+echo %AMARILLO%6.%BLANCO% Examina y repara la integridad de todos los archivos de sistema.      %ROJO%(SFC /ScanNow)%BLANCO%
+echo %AMARILLO%7.%VERDE% Realizar todos los diagn¢sticos.%BLANCO%  
 echo.
-echo %ROJO%0.%BLANCO% Salir
+echo %ROJO%0.%BLANCO% Salir.
 echo.
 choice /C:12345670 /n /t 20 /d 0 /m "Opci¢n: "
 
@@ -81,7 +81,7 @@ goto :FUNCION_%errorlevel%
     endlocal & pause & exit /B 0 
 
 :FUNCION_7
-    title Analisis completo
+    title An lisis completo
     echo Se proceder  a realizar todos los diagosticos.
     dism /Online /CleanUp-Image /Checkhhealth 1>nul 2>&1
     echo %ROJO%Restore Health.%BLANCO%
